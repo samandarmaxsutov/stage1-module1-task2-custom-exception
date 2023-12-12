@@ -26,11 +26,17 @@ public enum Student {
     this.age = age;
   }
 
-  public static Student getValueOf(long id) {
-    return Arrays.stream(Student.values())
-        .filter(student -> id == student.getId())
-        .findFirst()
-        .orElse(null);
+  public static Student getValueOf(long id) throws FindNotValidException {
+
+      if (id > 1 && id <= 11) {
+        return Arrays.stream(Student.values())
+                .filter(student -> id == student.getId())
+                .findFirst()
+                .orElse(null);
+      }else{
+        throw new FindNotValidException("Could not find student with ID "+id);
+      }
+
   }
 
   public long getId() {
